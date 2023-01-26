@@ -3,7 +3,9 @@ const QRLogo = require('../index.js');
 const data = JSON.stringify({
     name: "Zacharie Happel",
     job:  "Student/Intern",
-    grade: "Senior"
+    grade: "Senior",
+    width : 250,
+    height : 250
 });
 
 

@@ -3,7 +3,7 @@
   "version": "1.0.5",
   "main": "index.js",
   "scripts": {
-    "test": "test/test.js"
+    "test": "node test/test.js"
   },
   "repository": {
     "type": "git",
@@ -24,7 +24,7 @@
   "homepage": "https://github.com/ZachHappel/qr-with-logo#readme",
   "description": "",
   "dependencies": {
-    "qrcode": "^1.4.1",
-    "sharp": "^0.30.5"
+    "qrcode": "^1.5.1",
+    "sharp": "^0.30.7"
   }
 }

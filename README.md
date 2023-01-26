@@ -1,13 +1,6 @@
 **_qr-with-logo_** is a Node package developed to allow for the creation of QR codes with embedded logo images.
 
-
-## Installation
-
-Use node package manager ([npm](https://www.npmjs.com/get-npm)) to install  install QRLogo.
-
-```bash
-npm install --save qr-with-logo
-```
+##### This is a customized version of qr-with-logo, don't report any error to the real qr-with-logo github or support server. This ripo won't receive support in any way, it will probably not be updated any time soon
 
 ## Saving as PNG
 
@@ -16,7 +9,9 @@ const QRLogo = require('qr-with-logo');
 
 const data = JSON.stringify({name: "Zacharie Happel",
               job:  "Student/Intern", 
-              grade: "Senior"
+              grade: "Senior",
+              width : 200,
+              height : 200
 })
  
 await QRLogo.generateQRWithLogo(data, "logo.png", {}, "PNG", "qrlogo.png") 
@@ -29,7 +24,9 @@ const QRLogo = require('qr-with-logo');
 
 const data = JSON.stringify({name: "Zacharie Happel",
               job:  "Student/Intern", 
-              grade: "Senior"
+              grade: "Senior",
+              width : 200,
+              height : 200
 })
  
 await QRLogo.generateQRWithLogo(data, "logo.png", {}, "Base64", "qrlogo.png", async function(b64) {

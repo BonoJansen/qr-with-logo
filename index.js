@@ -78,6 +78,14 @@ async function generateQRWithLogo(embedded_data, logo_image_path, qr_options, ou
         qr_options = {errorCorrectionLevel: 'H'}
     }
 
+    if(!qr_options.width){
+        qr_options.width = 200;
+    } else if (!qr_options.height) {
+        qr_options.height = 200;
+    } else if ( qr_options.width < 200 || qr_options.height < 200 ){
+            console.error("The minimum widht and height is 200. Please set any value higher as 199")
+    }
+
 
 
     await generateQR(embedded_data, qr_options, async function (b64) {
@@ -86,7 +94,7 @@ async function generateQRWithLogo(embedded_data, logo_image_path, qr_options, ou
 
             if (output_type == "PNG") {
 
-                await addLogoToQRImage(qr_image_path, logo_image_path, "PNG", saveas_file_name, async function () {
+                await addLogoToQRImage(qr_image_path, logo_image_path, "PNG", saveas_file_name, qr_options, async function () {
 
                     callback(); // No-parameter callback, in the event
                     /**
@@ -112,7 +120,7 @@ async function generateQRWithLogo(embedded_data, logo_image_path, qr_options, ou
 
             } else if (output_type == "Base64") {
 
-                await addLogoToQRImage(qr_image_path, logo_image_path, "Base64", saveas_file_name, async function (qrlogo_b64) {
+                await addLogoToQRImage(qr_image_path, logo_image_path, "Base64", saveas_file_name, qr_options, async function (qrlogo_b64) {
 
                     //let qrlogo_base64 = qrlogo_b64;
 
@@ -172,7 +180,7 @@ async function saveAsPNG(b64, filename, callback) {
 
 
 
-async function addLogoToQRImage(qr_image_path, logo_image_path, output_type, saveas_file_name, callback) {
+async function addLogoToQRImage(qr_image_path, logo_image_path, output_type, saveas_file_name, qr_options, callback) {
 
     if (output_type == "Base64") {
         if (!callback) { console.log('Error: No callback provided'); }
@@ -180,6 +188,7 @@ async function addLogoToQRImage(qr_image_path, logo_image_path, output_type, sav
         else {
             console.log('Output: Base64');
             await sharp(qr_image_path)
+                .resize(qr_options.width, qr_options.height)
                 .composite([{input: logo_image_path, gravity: 'centre' }])
                 .toBuffer((err, data, info) => {
 
@@ -233,6 +242,7 @@ async function addLogoToQRImage(qr_image_path, logo_image_path, output_type, sav
 
             try {
                 sharp(qr_image_path)
+                    .resize(qr_options.width, qr_options.height)
                     .composite([{input: logo_image_path, gravity: 'centre' }])
                     .toFile(saveas_file_name);
 
@@ -251,4 +261,3 @@ async function addLogoToQRImage(qr_image_path, logo_image_path, output_type, sav
 
 
 exports.generateQRWithLogo = generateQRWithLogo;
-
