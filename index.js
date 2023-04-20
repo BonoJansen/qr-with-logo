@@ -35,9 +35,9 @@ async function generateQRWithLogo(embedded_data, logo_image_path, qr_options, ou
 
 
     let qr_image_path = `init_non_logo_qr_${new Date().getTime()}.png`;
-    console.log('This is saveas_file_name: ' + saveas_file_name);
+    // console.log('This is saveas_file_name: ' + saveas_file_name);
     let is_saveas_file_name_a_string = (typeof saveas_file_name == 'string');
-    console.log("saveas_file_name instanceof String: " + is_saveas_file_name_a_string);
+    // console.log("saveas_file_name instanceof String: " + is_saveas_file_name_a_string);
 
     if (embedded_data && logo_image_path && output_type) {
 
@@ -45,7 +45,8 @@ async function generateQRWithLogo(embedded_data, logo_image_path, qr_options, ou
 
             if (!saveas_file_name || ( typeof saveas_file_name != 'string')) {
                 throw SyntaxError(JSON.stringify( {name: ERRORS["INSUFF_PARAMS"].name, message: "saveas_file_name" + ERRORS["INSUFF_PARAMS"].message + "to PNG"}));
-            } console.log("All PNG parameters");
+            } 
+            // console.log("All PNG parameters");
 
         }
     }
@@ -169,7 +170,7 @@ async function generateQR(embedded_data, options, callback) {
 
 /** @param callback  file name that it was saved as is passed to the callback function */
 async function saveAsPNG(b64, filename, callback) {
-    console.log('Saving QR as: ' + filename);
+    // console.log('Saving QR as: ' + filename);
     let base64Data = await b64.replace(/^data:image\/png;base64,/, "");
     fs.writeFile(filename, base64Data, 'base64', function() {
         if (callback) {
@@ -186,7 +187,7 @@ async function addLogoToQRImage(qr_image_path, logo_image_path, output_type, sav
         if (!callback) { console.log('Error: No callback provided'); }
 
         else {
-            console.log('Output: Base64');
+            // console.log('Output: Base64');
             await sharp(qr_image_path)
                 .resize(qr_options.width, qr_options.height)
                 .composite([{input: logo_image_path, gravity: 'centre' }])
@@ -235,8 +236,8 @@ async function addLogoToQRImage(qr_image_path, logo_image_path, output_type, sav
 
     } else if (output_type == "PNG") {
 
-        console.log('Output: PNG');
-        console.log('SaveAs: ' + saveas_file_name);
+        // console.log('Output: PNG');
+        // console.log('SaveAs: ' + saveas_file_name);
 
         if (saveas_file_name) {
 
